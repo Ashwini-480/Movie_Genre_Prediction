@@ -13,7 +13,12 @@ st.set_page_config(
 # Loading the saved machine learning model
 @st.cache_resource
 def load_model():
-    return joblib.load("movie_genre_prediction_model.joblib")
+  import gzip
+
+@st.cache_resource
+def load_model():
+    with gzip.open("movie_genre_prediction_model.joblib.gz", "rb") as f:
+        return joblib.load(f)
 
 try:
     model_data = load_model()
